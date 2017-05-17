@@ -32,7 +32,7 @@ export default class ColombiaMap extends Component {
 
 		var path = d3.geo.path()
 		  .projection(this.projection);
-		this.props.setProj(this.projection)
+		this.props.setProje(this.projection)
 		// Set svg width & height
 		var svg = d3.select(this.svg)
 		  .attr('width', width)
@@ -92,7 +92,7 @@ export default class ColombiaMap extends Component {
 
 		// Get province color
 		function fillFn(d){
-		  return color(me.props.data[nameFn(d)]||0);
+			return '#333'
 		}
 
 		// When clicked, zoom in
