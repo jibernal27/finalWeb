@@ -31,8 +31,6 @@ export class App extends Component {
 
   setProj(proj)
   {
-    console.log("proyeccion")
-    console.log(proj)
     this.setState({
       projection: proj
     })

@@ -8,52 +8,48 @@ export default class Map extends TrackerReact( Component) {
 
 	constructor(props) {
 		super(props);
-		var d=new Date();
-		this.state={ctx:null,lasDate:d,canvasData:null};
+		this.state={last:0};
 
 		
 	}
 
 	componentWillReceiveProps(nextProps)
 	{
-		this.drawDot(nextProps)
+		this.drawDot(nextProps.tweets)
 		
 	}
 
 	drawDot(tweets)
 	{
-		
-		for(count = 0; count < tweets.length; count++)
+		var canvas = document.getElementById("myCanvas");
+		var canvasWidth = canvas.width;
+		var canvasHeight = canvas.height;
+		var ctx = canvas.getContext("2d");
+		var canvasData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+		console.log('porque no haces loop');
+		console.log(tweets.length);
+		for(var i = this.state.last; i < tweets.length; i++)
 		{
-			console.log(this.props.geProje()(tweets[0].coordinates.coordinates))
-			console.log(count);
-			
+			x=this.props.geProje()(tweets[i].coordinates.coordinates);
+			// var index = (x[0] + x[1] * 600) * 4;
+			// canvasData.data[index + 0] = 255;
+			// canvasData.data[index + 1] = 0;
+			// canvasData.data[index + 2] = 0;
+			// canvasData.data[index + 3] = 0.3;
+			ctx.fillStyle="#FF0000";
+			ctx.fillRect(x[0],x[1],3,3);
 		}
 
-	}
-
-	drawPixel (x, y, r, g, b, a) 
-	{
-		var index = (x + y * 600) * 4;
-		var canvasData=this.state.canvasData;
-		canvasData.data[index + 0] = r;
-		canvasData.data[index + 1] = g;
-		canvasData.data[index + 2] = b;
-		canvasData.data[index + 3] = a;
+		this.setState({last:i})
+		
 
 	}
+
 
 
 
 	componentDidMount()
 	{
-		var canvas = document.getElementById("myCanvas");
-		var canvasWidth = canvas.width;
-		var canvasHeight = canvas.height;
-		var ctx = canvas.getContext("2d");
-		this.setState({ctx:ctx});
-		var canvasData = ctx.getImageData(0, 0, 600, 600);
-		this.setState({canvasData:canvasData});
 		
 	}
 
